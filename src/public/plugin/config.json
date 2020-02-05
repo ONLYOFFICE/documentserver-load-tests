@@ -1,0 +1,12 @@
+{
+    "name"       : "hello world1",
+    "guid"       : "asc.{9616f139-6386-4e50-83bb-3dad84938ddd}",
+    "variations" : [
+        {
+            "url"                 : "index.html",
+            "icons"               : ["icon.png"],
+            "EditorsSupport"      : ["word"],
+            "buttons"             : []
+        }
+    ]
+}
