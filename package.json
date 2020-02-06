@@ -1,0 +1,40 @@
+{
+  "name": "documentserver-load-tests",
+  "version": "1.0.0",
+  "description": "This repo is contain some tests and utilits for testing performance and load of documentserver",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tslint --project . && ts-node src/server.ts",
+    "lint": "tslint --project .",
+    "start": "ts-node dist/server.js",
+    "build": "tsc -p ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ONLYOFFICE/documentserver-load-tests.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ONLYOFFICE/documentserver-load-tests/issues"
+  },
+  "homepage": "https://github.com/ONLYOFFICE/documentserver-load-tests#readme",
+  "dependencies": {
+    "@types/express": "^4.17.2",
+    "@types/node": "^13.5.1",
+    "cors": "^2.8.5",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "express-ws": "^4.0.0",
+    "pug": "^2.0.4",
+    "serve-favicon": "^2.5.0",
+    "ts-node": "^8.6.2",
+    "tslint": "^6.0.0",
+    "typescript": "^3.7.5",
+    "uuid": "^3.4.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.6",
+    "@types/express-ws": "^3.0.0"
+  }
+}
