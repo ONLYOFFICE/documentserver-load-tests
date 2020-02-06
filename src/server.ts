@@ -12,7 +12,7 @@ const { app } = expressWs(express());
 let _counter = 1;
 let connects: WebSocket[] = [];
 
-settings.key = uuidv1();
+settings.key = uuidv1().substr(0,8);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
