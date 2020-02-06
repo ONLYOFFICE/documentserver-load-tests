@@ -1,0 +1,32 @@
+<html lang="en">
+<div class="space">
+
+    <button onclick="clear_logs_data()">clear</button>
+    <div>
+        <label>count of editors
+            <input id="count">
+        </label>
+    </div>
+
+</div>
+</html>
+<script>
+    const socket = new WebSocket('ws://' + window.location.host + '/activity');
+    let logsData = [];
+
+    // Connection opened
+
+    // Listen for messages
+    const inputElement = document.getElementById('count')
+    socket.addEventListener('message', function (event) {
+        let data = JSON.parse(event.data)
+        const newElement = data.key + data.username;
+        logsData.indexOf(newElement) === -1 && logsData.push(newElement);
+        inputElement.value = logsData.length;
+    });
+
+    function clear_logs_data() {
+        logsData = [];
+        inputElement.value = 0;
+    }
+</script>
