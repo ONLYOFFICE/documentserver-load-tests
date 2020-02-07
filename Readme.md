@@ -43,3 +43,5 @@ Every new browser (or browser tab) will be opened with editors, and autostarted 
 Max count of users in one coediting session is defines by `userGroupCount` option in `settigs.json`
 
 Please, see onlyoffice-webdriver-page-opener for use selenium webdriver for opening browsers automaticly
+
+`http://ip/activity` - is a page for check living of documentserver
