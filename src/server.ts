@@ -61,20 +61,24 @@ app.get('/activity', (req, res) => {
 
 // don't know how to set type instead of any
 app.ws('/activity', (ws: any) => {
-    connects.push(ws);
-    if (ws.readyState === 1) {
-        ws.on('message', (msg: string) => {
-            connects.forEach(socket => {
-                socket.send(msg);
+    try {
+        connects.push(ws);
+        if (ws.readyState === 1) {
+            ws.on('message', (msg: string) => {
+                connects.forEach(socket => {
+                    socket.send(msg);
+                });
+            });
+        }
+
+        ws.on('close', () => {
+            connects = connects.filter(conn => {
+                return (conn !== ws);
             });
         });
+    } catch (e) {
+        console.log(e);
     }
-
-    ws.on('close', () => {
-        connects = connects.filter(conn => {
-            return (conn !== ws);
-        });
-    });
 });
 
 app.listen(+settings.hostPort);
