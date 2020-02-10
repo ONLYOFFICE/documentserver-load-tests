@@ -63,13 +63,13 @@ app.get('/activity', (req, res) => {
 app.ws('/activity', (ws: any) => {
     try {
         connects.push(ws);
-        if (ws.readyState === 1) {
             ws.on('message', (msg: string) => {
                 connects.forEach(socket => {
-                    socket.send(msg);
+                    if (ws.readyState === 1) {
+                        socket.send(msg);
+                    }
                 });
             });
-        }
 
         ws.on('close', () => {
             connects = connects.filter(conn => {
