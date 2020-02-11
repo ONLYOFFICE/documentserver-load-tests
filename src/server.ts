@@ -2,17 +2,19 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser = require("body-parser");
 import path from "path";
+
 const settings = require("./settings.json");
 const uuidv1 = require('uuid/v1');
 const favicon = require('serve-favicon');
 
 import expressWs from 'express-ws';
-const { app } = expressWs(express());
+
+const {app} = expressWs(express());
 
 let _counter = 1;
 let connects: WebSocket[] = [];
 
-settings.key = uuidv1().substr(0,8);
+settings.key = uuidv1().substr(0, 8);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -34,14 +36,14 @@ app.use((req, res, next) => {
     }
 });
 
-app.get('/',  (req, res) => {
+app.get('/', (req, res) => {
     if (_counter > settings.userGroupCount) {
-        settings.key = uuidv1().substr(0,8);
+        settings.key = uuidv1().substr(0, 8);
         _counter = 1;
     }
     settings.userName = "user_" + _counter;
-    _counter +=1;
-    res.render('index', settings );
+    _counter += 1;
+    res.render('index', settings);
 
 });
 
@@ -59,18 +61,11 @@ app.get('/activity', (req, res) => {
     res.render('activity', {connectsCount: connects.length, documentServer: settings.documentServer});
 });
 
+let cachedData: string[] = [];
 // don't know how to set type instead of any
 app.ws('/activity', (ws: any) => {
     try {
         connects.push(ws);
-            ws.on('message', (msg: string) => {
-                connects.forEach(socket => {
-                    if (ws.readyState === 1) {
-                        socket.send(msg);
-                    }
-                });
-            });
-
         ws.on('close', () => {
             connects = connects.filter(conn => {
                 return (conn !== ws);
@@ -81,4 +76,23 @@ app.ws('/activity', (ws: any) => {
     }
 });
 
+app.ws('/message', (ws: any) => {
+    try {
+        ws.on('message', (msg: string) => {
+            cachedData.push(msg);
+        });
+    } catch (e) {
+        console.log(e);
+    }
+});
+
+setInterval(() => {
+    connects.forEach(socket => {
+        if (cachedData !== []) {
+            console.log(cachedData);
+            socket.send(JSON.stringify(cachedData));
+        }
+    });
+    cachedData = [];
+}, 1000);
 app.listen(+settings.hostPort);
