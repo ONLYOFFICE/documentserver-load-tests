@@ -6,6 +6,7 @@ import path from "path";
 const settings = require("./settings.json");
 const uuidv1 = require('uuid/v1');
 const favicon = require('serve-favicon');
+const url = require('url');
 
 import expressWs from 'express-ws';
 
@@ -13,7 +14,7 @@ const {app} = expressWs(express());
 
 let _counter = 1;
 let connects: WebSocket[] = [];
-
+let specialLog= '';
 settings.key = uuidv1().substr(0, 8);
 
 app.set('views', path.join(__dirname, 'views'));
@@ -63,8 +64,9 @@ app.get('/activity', (req, res) => {
 
 let cachedData: string[] = [];
 // don't know how to set type instead of any
-app.ws('/activity', (ws: any) => {
+app.ws('/activity', (ws: any, req: any) => {
     try {
+        special_log(url.parse(req.url, true).query, ws);
         connects.push(ws);
         ws.on('close', () => {
             connects = connects.filter(conn => {
@@ -76,10 +78,31 @@ app.ws('/activity', (ws: any) => {
     }
 });
 
+function special_log(param: any, ws: any) {
+    if (param) {
+        if (param.key) {
+            specialLog = param.key;
+            console.log('param: ');
+            console.log(param.key);
+        }
+    }
+    return ws;
+}
+
 app.ws('/message', (ws: any) => {
     try {
         ws.on('message', (msg: string) => {
             cachedData.push(msg);
+            if (specialLog) {
+                if (JSON.parse(msg).key === specialLog) {
+
+                    connects.forEach(socket => {
+                        if (cachedData !== []) {
+                                socket.send('specialLog');
+                        }
+                    });
+                }
+            }
         });
     } catch (e) {
         console.log(e);
@@ -89,10 +112,10 @@ app.ws('/message', (ws: any) => {
 setInterval(() => {
     connects.forEach(socket => {
         if (cachedData !== []) {
-            console.log(cachedData);
             socket.send(JSON.stringify(cachedData));
         }
     });
     cachedData = [];
 }, 1000);
+
 app.listen(+settings.hostPort);

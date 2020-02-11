@@ -8,6 +8,12 @@
         </label>
     </div>
 </div>
+
+<div class="special-log">
+    <input id="documentId" placeholder="documentId">
+    <button onclick="special_log()">Save</button>
+
+</div>
 </html>
 <script>
     const socket = new WebSocket('ws://' + window.location.host + '/activity');
@@ -18,20 +24,33 @@
     // Listen for messages
     const inputElement = document.getElementById('count')
     socket.addEventListener('message', function (event) {
-        let _logsData = []
+        if (event.data === 'specialLog') {
+            console.log('specialLog')
+        } else {
+            let _logsData = []
+            JSON.parse(event.data).forEach(currentData => {
+                currentData = JSON.parse(currentData)
+                _logsData.push(currentData.key + currentData.username);
+            })
+            logsData = logsData.concat(_logsData)
 
-        JSON.parse(event.data).forEach(currentData => {
-            currentData = JSON.parse(currentData)
-            _logsData.push(currentData.key + currentData.username);
-        })
-        logsData = logsData.concat(_logsData)
-        console.log([...new Set(logsData)])
+            inputElement.value = [...new Set(logsData)].length;
+        }
 
-        inputElement.value = [...new Set(logsData)].length;
     });
 
     function clear_logs_data() {
         logsData = [];
         inputElement.value = 0;
     }
+
+    function special_log() {
+        specialSocket = new WebSocket('ws://' + window.location.host + '/activity/?key=' + document.getElementById('documentId').value);
+    }
 </script>
+
+<style>
+    .special-log {
+        margin: 2em;
+    }
+</style>
