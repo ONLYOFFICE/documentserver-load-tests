@@ -14,7 +14,9 @@ window.Asc.plugin.init = async function () {
     });
 
     setInterval(async function () {
+        console.time('write');
         await write();
+        console.timeEnd('write');
         if (socket.readyState === 1) {
             socket.send(sessionData);
         } else if (socket.readyState === 3) {
@@ -33,7 +35,7 @@ window.Asc.plugin.init = async function () {
                 oParagraph.SetStyle(oParaStyle);
                 oParaPr = oParagraph.GetParaPr();
                 oParaPr.SetBetweenBorder("single", 24, 0, Asc.scope.r, Asc.scope.g, Asc.scope.b);
-            }, false, '', resolve());
+            }, false, '', resolve);
         })
     }
 };
