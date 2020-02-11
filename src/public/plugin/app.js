@@ -7,20 +7,20 @@ window.Asc.plugin.init = async function () {
     console.log(Asc.scope.g);
     console.log(Asc.scope.b);
 
-    let socket = new WebSocket('ws://' + window.location.host + '/activity');
+    let socket = new WebSocket('ws://' + window.location.host + '/message');
     const sessionData = JSON.stringify({
         username: window.Asc.plugin.info.userName,
         key: window.Asc.plugin.info.documentId
     });
 
-    for (let i = 0; i < 100; i) {
-        await write();
+    setInterval(function () {
+        write();
         if (socket.readyState === 1) {
             socket.send(sessionData);
         } else if (socket.readyState === 3) {
-            socket = new WebSocket('ws://' + window.location.host + '/activity');
+            socket = new WebSocket('ws://' + window.location.host + '/message');
         }
-    }
+    }, 1000);
 
     function write() {
         j += 1;
