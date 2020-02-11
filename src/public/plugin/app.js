@@ -13,8 +13,8 @@ window.Asc.plugin.init = async function () {
         key: window.Asc.plugin.info.documentId
     });
 
-    setInterval(function () {
-        write();
+    setInterval(async function () {
+        await write();
         if (socket.readyState === 1) {
             socket.send(sessionData);
         } else if (socket.readyState === 3) {
@@ -33,9 +33,7 @@ window.Asc.plugin.init = async function () {
                 oParagraph.SetStyle(oParaStyle);
                 oParaPr = oParagraph.GetParaPr();
                 oParaPr.SetBetweenBorder("single", 24, 0, Asc.scope.r, Asc.scope.g, Asc.scope.b);
-            }, false, '', function () {
-                setTimeout(() => resolve(), 1000);
-            });
+            }, false, '', resolve());
         })
     }
 };
