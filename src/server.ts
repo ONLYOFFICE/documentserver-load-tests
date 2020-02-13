@@ -48,6 +48,11 @@ app.get('/', (req, res) => {
 
 });
 
+app.get('/open', (req, res) => {
+    settings.key = req.query.key;
+    res.render('open', settings);
+});
+
 // default response without file saving. See https://api.onlyoffice.com/editors/callback
 app.post('/callback', (req, res) => {
     res.json({error: 0});
