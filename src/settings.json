@@ -1,6 +1,0 @@
-{
-  "hostUrl": "http://ip",
-  "hostPort": "3000",
-  "documentServer": "http://ip:port",
-  "userGroupCount": 2
-}

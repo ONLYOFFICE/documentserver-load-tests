@@ -21,8 +21,5 @@
 <script>
     const key = "<%= key %>";
     const exampleUrl = "<%= hostUrl %>" + ":" + "<%= hostPort %>";
-    window.location.hash +='#key=' + key;
-    open_and_wait(key, 'userName', exampleUrl)
-
-
+    open_without_plugin(key, 'userName', exampleUrl, false)
 </script>
