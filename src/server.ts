@@ -38,14 +38,32 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
+    res.render('index', settings);
+});
+
+app.get('/background_for_paragraphs', (req, res) => {
+    if (_counter > settings.userGroupCount) {
+        settings.key = uuidv1().substr(0, 8);
+        _counter = 1;
+    }
+    settings.plugin = 'background_for_paragraphs';
+    settings.documentname = 'Document1.docx';
+    settings.userName = "user_" + _counter;
+    _counter += 1;
+    res.render('background_for_paragraphs', settings);
+});
+
+app.get('/background_for_cells', (req, res) => {
     if (_counter > settings.userGroupCount) {
         settings.key = uuidv1().substr(0, 8);
         _counter = 1;
     }
     settings.userName = "user_" + _counter;
     _counter += 1;
-    res.render('index', settings);
 
+    settings.plugin = 'background_for_cells';
+    settings.documentname = 'Spreadsheet.xlsx';
+    res.render('background_for_cells', settings);
 });
 
 app.get('/open', (req, res) => {

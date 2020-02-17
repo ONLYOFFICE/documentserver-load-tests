@@ -1,9 +1,9 @@
-function open_and_wait(key, userName, exampleUrl) {
+function open_and_wait(key, userName, exampleUrl, plugin, document) {
     const config = {
-        documentType: 'text',
+        documentType: document.documentType,
         document: {
-            fileType: "docx",
-            url: exampleUrl + "/public/documents/Document1.docx",
+            fileType: document.fileType,
+            url: exampleUrl + "/public/documents/" + document.name,
         },
         editorConfig: {
             mode: 'edit',
@@ -13,10 +13,10 @@ function open_and_wait(key, userName, exampleUrl) {
             },
             plugins: {
                 autostart: [
-                    "asc.{9616f139-6386-4e50-83bb-3dad84938ddd}"
+                    "asc.{9616f139-6386-4e50-83bb-3dad84938cdd}"
                 ],
                 pluginsData: [
-                    exampleUrl + "/public/plugin/config.json"
+                    exampleUrl + "/public/plugins/" + plugin + "/config.json"
                 ]
             },
         },
@@ -33,10 +33,10 @@ function open_and_wait(key, userName, exampleUrl) {
 
 function open_without_plugin(key, userName, exampleUrl) {
     const config = {
-        documentType: 'text',
+        documentType: document.documentType,
         document: {
-            fileType: "docx",
-            url: exampleUrl + "/public/documents/Document1.docx",
+            fileType: document.fileType,
+            url: exampleUrl + "/public/documents/" + document.name,
         },
         editorConfig: {
             mode: 'edit',
@@ -46,7 +46,7 @@ function open_without_plugin(key, userName, exampleUrl) {
             },
             plugins: {
                 pluginsData: [
-                    exampleUrl + "/public/plugin/config.json"
+                    exampleUrl + "/public/plugins/" + plugin + "/config.json"
                 ]
             },
         },
@@ -59,4 +59,12 @@ function open_without_plugin(key, userName, exampleUrl) {
         config['editorConfig']['user'] = {"name": this.userName}
     }
     window.instance = new DocsAPI.DocEditor("editor_frame", config);
+}
+
+function hash_username() {
+    return window.location.hash.split('#username=')[1]?.split("#")[0];
+}
+
+function hash_key() {
+    return window.location.hash.split('#key=')[1]?.split("#")[0];
 }

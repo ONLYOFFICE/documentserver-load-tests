@@ -2,15 +2,12 @@
 <body>
 
 <div class="space">
-    <div id="editor">
-        <div id="editor_frame"></div>
-    </div>
+    <a href="background_for_paragraphs"><b>Background for paragraphs</b> case</a> <br>
+    <a href="background_for_cells"><b>Background for cells</b> case</a>
 </div>
 </body>
 <head>
     <link rel="shortcut icon" href="public/favicon.ico"/>
-    <script type="text/javascript" src="<%= documentServer %>/web-apps/apps/api/documents/api.js"></script>
-    <script type="text/javascript" src="/public/js/editor.js"></script>
 </head>
 </html>
 <style>
@@ -18,13 +15,3 @@
         height: 100%;
     }
 </style>
-<script>
-    const userName = "<%= userName %>";
-    const key = "<%= key %>";
-    const exampleUrl = "<%= hostUrl %>" + ":" + "<%= hostPort %>";
-    window.location.hash ='username=' + userName;
-    window.location.hash +='#key=' + key;
-    open_and_wait(key, userName, exampleUrl)
-
-
-</script>

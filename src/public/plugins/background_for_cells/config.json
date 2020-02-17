@@ -1,0 +1,12 @@
+{
+    "name"       : "cells background",
+    "guid"       : "asc.{9616f139-6386-4e50-83bb-3dad84938cdd}",
+    "variations" : [
+        {
+            "url"                 : "index.html",
+            "icons"               : ["favicon.ico"],
+            "EditorsSupport"      : ["cell"],
+            "buttons"             : []
+        }
+    ]
+}

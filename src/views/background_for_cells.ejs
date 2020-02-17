@@ -1,0 +1,36 @@
+<html>
+<body>
+
+<div class="space">
+    <div id="editor">
+        <div id="editor_frame"></div>
+    </div>
+</div>
+</body>
+<head>
+    <link rel="shortcut icon" href="public/favicon.ico"/>
+    <script type="text/javascript" src="<%= documentServer %>/web-apps/apps/api/documents/api.js"></script>
+    <script type="text/javascript" src="/public/js/editor.js"></script>
+</head>
+</html>
+<style>
+    div, body, html {
+        height: 100%;
+    }
+</style>
+<script>
+    const plugin = "<%= plugin %>";
+    const userName = hash_username()?hash_username():"<%= userName %>";
+    const key = hash_key()?hash_key():"<%= key %>";
+    const exampleUrl = "<%= hostUrl %>" + ":" + "<%= hostPort %>";
+    const documentname = "<%= documentname %>";
+    const odocument = {
+        documentType: "spreadsheet",
+        name: documentname,
+        fileType: "xlsx"
+    }
+    window.location.hash ='username=' + userName;
+    window.location.hash +='#key=' + key;
+    open_and_wait(key, userName, exampleUrl, plugin, odocument)
+</script>
+
