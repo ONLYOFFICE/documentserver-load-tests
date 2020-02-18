@@ -18,6 +18,16 @@
         <a class="button" href="background_for_cells">GO!</a>
     </div>
 </div>
+<div style="flex:1"></div>
+<div class="tools">
+    <div class="activity">
+        <p class="case-title">Activity</p>
+        <p class="case-description">
+            Page with statistic of all opened documents with plugins
+        </p>
+        <a class="button" href="activity">GO!</a>
+    </div>
+</div>
 </body>
 <head>
     <title>Overview</title>
@@ -27,13 +37,20 @@
 <style>
     body, html {
         display: flex;
+        width: 100%;
     }
 
-    .case {
+    .case, .activity {
         background-color: rgba(0, 255, 255, 0.18);
         border: solid 1px rgba(0, 227, 227, 0.3);
         margin: 0.5em;
         padding: 0.3em;
+    }
+
+    .activity {
+        background-color: rgba(237, 0, 8, 0.45);
+        border: solid 1px rgba(255, 0, 9, 0.43);
+
     }
 
     .case-title {
