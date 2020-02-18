@@ -1,17 +1,65 @@
-<html>
+<html lang="en">
 <body>
 
 <div class="space">
-    <a href="background_for_paragraphs"><b>Background for paragraphs</b> case</a> <br>
-    <a href="background_for_cells"><b>Background for cells</b> case</a>
+    <div class="case">
+        <p class="case-title">Change background for paragraphs</p>
+        <p class="case-description">
+            Open document with <b>1320</b> paragraphs and change background color every <b>1</b> second for each of them.
+        </p>
+        <a class="button" href="background_for_paragraphs">GO!</a>
+    </div>
+
+    <div class="case">
+        <p class="case-title">Change background for cells</p>
+        <p class="case-description">
+            Open spreadsheet change background color every <b>0.3</b> second for each of cells on range <b>28x40</b>.
+        </p>
+        <a class="button" href="background_for_cells">GO!</a>
+    </div>
 </div>
 </body>
 <head>
+    <title>Overview</title>
     <link rel="shortcut icon" href="public/favicon.ico"/>
 </head>
 </html>
 <style>
-    div, body, html {
-        height: 100%;
+    body, html {
+        display: flex;
+    }
+
+    .case {
+        background-color: rgba(0, 255, 255, 0.18);
+        border: solid 1px rgba(0, 227, 227, 0.3);
+        margin: 0.5em;
+        padding: 0.3em;
+    }
+
+    .case-title {
+        text-align: center;
+        font-size: 1.2em;
+        text-decoration: none
+    }
+
+    .case-description {
+        text-decoration: none
+    }
+
+    .button {
+        background-color: #47aaad;
+        border: none;
+        color: white;
+        padding: 5px 19px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 20px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    .button:hover{
+        background-color: #438285;
     }
 </style>
