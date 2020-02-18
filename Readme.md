@@ -30,18 +30,4 @@ docker run -itd -p 80:80 load
 
 ```
 
-## How it work
-
-After start app, you can use 2 special path: `http://ip/`and `http://ip/activity`
-
-`http://ip/` - open example file (`src/public/documents/Document1.docx`).
-
-Just open this path in many browsers for check load of documentserver coediting subsystem.
-
-Every new browser (or browser tab) will be opened with editors, and autostarted plugin (`src/public/plugin`)
-
-Max count of users in one coediting session is defines by `userGroupCount` option in `settigs.json`
-
-Please, see onlyoffice-webdriver-page-opener for use selenium webdriver for opening browsers automaticly
-
-`http://ip/activity` - is a page for check living of documentserver
+After it, pp will work on `http://ip/`
