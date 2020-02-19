@@ -1,19 +1,39 @@
 <html lang="en">
-<h1 align="center">Activity</h1>
+<head>
+    <title>Activity</title>
+    <link rel="stylesheet" href="/public/css/style.css">
+</head>
+<body>
 <div class="space">
-    <button onclick="clear_logs_data()">clear</button>
-    <div>
-        <label>count of uniq pings
-            <input id="count">
-        </label>
+
+</div>
+<div class="space">
+    <div class="case">
+        <div class="case-description">All opened documents with plugin send logs with unique id to server. </br>
+            This value is a count of unique ids from start of page loaded. </br>
+            You can reset this value to count it again
+        </div>
+        <div class="case-title">Count of unique ids: <span id="count">0</span>
+            <a class="button" onclick="clear_logs_data()">clear</a>
+        </div>
+    </div>
+</div>
+
+<div class="toolbar">
+    <div class="case">
+        <div class="case-description">This value is a average count of logs with id to 1 second</div>
+        <input id="documentId" class="input-id" placeholder="documentId">
+        <div class="case-title">Count of unique ids: <span id="count">0</span>
+            <a class="button" onclick="clear_logs_data()">clear</a>
+        </div>
     </div>
 </div>
 
 <div class="special-log">
     <input id="documentId" placeholder="documentId">
-    <button onclick="special_log()">Save</button>
-
+    <a class="button" onclick="special_log()">Save</a>
 </div>
+</body>
 </html>
 <script>
     const socket = new WebSocket('ws://' + window.location.host + '/activity');
@@ -34,7 +54,7 @@
             })
             logsData = logsData.concat(_logsData)
 
-            inputElement.value = [...new Set(logsData)].length;
+            inputElement.innerText = [...new Set(logsData)].length;
         }
 
     });
