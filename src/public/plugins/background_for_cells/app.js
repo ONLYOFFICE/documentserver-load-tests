@@ -22,7 +22,7 @@ window.Asc.plugin.init = async function () {
         } else if (socket.readyState === 3) {
             socket = new WebSocket('ws://' + window.location.host + '/message');
         }
-    }, 300);
+    }, 500);
 
     function write() {
         j += 1;
