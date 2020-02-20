@@ -22,22 +22,20 @@
 <div class="toolbar">
     <div class="case">
         <div class="case-description">This value is a average count of logs with id to 1 second</div>
-        <input id="documentId" class="input-id" placeholder="documentId">
-        <div class="case-title">Count of unique ids: <span id="count">0</span>
-            <a class="button" onclick="clear_logs_data()">clear</a>
+        <div style="display: flex;">
+            <input id="documentId" class="input-id" placeholder="documentId">
+            <a class="button" onclick="special_log()">Save</a>
         </div>
+        <div class="case-title">Average: <span id="average-count">0</span></div>
     </div>
-</div>
-
-<div class="special-log">
-    <input id="documentId" placeholder="documentId">
-    <a class="button" onclick="special_log()">Save</a>
 </div>
 </body>
 </html>
 <script>
     const socket = new WebSocket('ws://' + window.location.host + '/activity');
     let logsData = [];
+    let timer = new Date().getTime();
+    let specialLogsCount = 0;
 
     // Connection opened
 
@@ -45,6 +43,7 @@
     const inputElement = document.getElementById('count')
     socket.addEventListener('message', function (event) {
         if (event.data === 'specialLog') {
+            specialLogsCount +=1;
             console.log('specialLog')
         } else {
             let _logsData = []
@@ -56,7 +55,6 @@
 
             inputElement.innerText = [...new Set(logsData)].length;
         }
-
     });
 
     function clear_logs_data() {
@@ -65,12 +63,15 @@
     }
 
     function special_log() {
+        const element = document.getElementById('average-count')
+        timer = new Date().getTime();
+        specialLogsCount = 0;
         specialSocket = new WebSocket('ws://' + window.location.host + '/activity/?key=' + document.getElementById('documentId').value);
+        let timeleft = 0;
+        setInterval(() => {
+            element.innerText = (specialLogsCount/timeleft).toFixed(1);
+            timeleft += 0.5;
+
+        }, 500)
     }
 </script>
-
-<style>
-    .special-log {
-        margin: 2em;
-    }
-</style>
