@@ -118,7 +118,6 @@ app.ws('/message', (ws: any) => {
             cachedData.push(msg);
             if (specialLog) {
                 if (JSON.parse(msg).key === specialLog) {
-
                     connects.forEach(socket => {
                         if (cachedData !== []) {
                                 socket.send('specialLog');
@@ -135,7 +134,9 @@ app.ws('/message', (ws: any) => {
 setInterval(() => {
     connects.forEach(socket => {
         if (cachedData !== []) {
-            socket.send(JSON.stringify(cachedData));
+            if (socket.readyState === 1) {
+                socket.send(JSON.stringify(cachedData));
+            }
         }
     });
     cachedData = [];
