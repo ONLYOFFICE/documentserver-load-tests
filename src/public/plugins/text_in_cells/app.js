@@ -1,6 +1,6 @@
 window.Asc.plugin.init = async function () {
     let j = 0;
-    Asc.scope.rand_text = (Math.random().toString(36).slice(2).repeat(105)+'qq').length;
+    Asc.scope.rand_text = (Math.random().toString(36).slice(2).repeat(105)+'qq');
     console.log(Asc.scope.rand_text);
 
     let socket = new WebSocket('ws://' + window.location.host + '/message');
