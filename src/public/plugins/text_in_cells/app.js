@@ -26,7 +26,7 @@ window.Asc.plugin.init = async function () {
             window.Asc.plugin.callCommand(function () {
                 const oWorksheet = Api.GetActiveSheet();
                 const range = oWorksheet.GetRangeByNumber(Math.floor(Math.random() * 28), Math.floor(Math.random() * 40));
-                range.SetFillColor(Api.CreateColorFromRGB(Asc.scope.r, Asc.scope.g, Asc.scope.b));
+                range.SetValue(Asc.scope.rand_text);
             }, false, '', resolve);
         })
     }
