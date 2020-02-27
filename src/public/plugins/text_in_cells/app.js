@@ -1,7 +1,11 @@
 window.Asc.plugin.init = async function () {
     let j = 0;
-    Asc.scope.rand_text = (Math.random().toString(36).slice(2).repeat(52)+'qq');
-    console.log(Asc.scope.rand_text);
+    Asc.scope.r = Math.floor(Math.random() * 254);
+    Asc.scope.g = Math.floor(Math.random() * 254);
+    Asc.scope.b = Math.floor(Math.random() * 254);
+    console.log(Asc.scope.r);
+    console.log(Asc.scope.g);
+    console.log(Asc.scope.b);
 
     let socket = new WebSocket('ws://' + window.location.host + '/message');
     const sessionData = JSON.stringify({
@@ -26,7 +30,10 @@ window.Asc.plugin.init = async function () {
             window.Asc.plugin.callCommand(function () {
                 const oWorksheet = Api.GetActiveSheet();
                 const range = oWorksheet.GetRangeByNumber(Math.floor(Math.random() * 28), Math.floor(Math.random() * 40));
-                range.SetValue(Asc.scope.rand_text);
+                range.SetBorders("Bottom", "Thick", Api.CreateColorFromRGB(Asc.scope.r, Asc.scope.g, Asc.scope.b));
+                range.SetBorders("Left", "Thick", Api.CreateColorFromRGB(Asc.scope.r, Asc.scope.g, Asc.scope.b));
+                range.SetBorders("Right", "Thick", Api.CreateColorFromRGB(Asc.scope.r, Asc.scope.g, Asc.scope.b));
+                range.SetBorders("Top", "Thick", Api.CreateColorFromRGB(Asc.scope.r, Asc.scope.g, Asc.scope.b));
             }, false, '', resolve);
         })
     }
