@@ -12,8 +12,13 @@ import expressWs from 'express-ws';
 
 const {app} = expressWs(express());
 
+// is a counter for users in one group. See settings for change max count of its
 let _counter = 1;
+
+// is a count of opened connections for activity
 let connects: WebSocket[] = [];
+
+// id of document. You will see average count of logs on activity page
 let specialLog= '';
 settings.key = uuidv1().substr(0, 8);
 
@@ -99,7 +104,7 @@ app.get('/activity', (req, res) => {
 });
 
 let cachedData: string[] = [];
-// don't know how to set type instead of any
+// don't know how to set "ws" and req types instead of any
 app.ws('/activity', (ws: any, req: any) => {
     try {
         special_log(url.parse(req.url, true).query, ws);
