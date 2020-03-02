@@ -19,7 +19,7 @@
     "type": "git",
     "url": "git+https://github.com/ONLYOFFICE/documentserver-load-tests.git"
   },
-  "author": "",
+  "author": "Dmitriy Rotatyy",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ONLYOFFICE/documentserver-load-tests/issues"
