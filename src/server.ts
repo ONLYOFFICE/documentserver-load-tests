@@ -66,7 +66,7 @@ app.get('/background_for_cells', (req, res) => {
     res.render('background_for_cells', settings);
 });
 
-app.get('/text_in_cells', (req, res) => {
+app.get('/border_for_cells', (req, res) => {
     if (_counter > settings.userGroupCount) {
         settings.key = uuidv1().substr(0, 8);
         _counter = 1;
@@ -74,7 +74,7 @@ app.get('/text_in_cells', (req, res) => {
     settings.userName = "user_" + _counter;
     _counter += 1;
 
-    settings.plugin = 'text_in_cells';
+    settings.plugin = 'border_for_cells';
     settings.documentname = 'Spreadsheet.xlsx';
     res.render('background_for_cells', settings);
 });
