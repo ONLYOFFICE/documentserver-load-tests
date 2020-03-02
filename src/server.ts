@@ -47,38 +47,21 @@ app.get('/', (req, res) => {
 });
 
 app.get('/background_for_paragraphs', (req, res) => {
-    if (_counter > settings.userGroupCount) {
-        settings.key = uuidv1().substr(0, 8);
-        _counter = 1;
-    }
+    update_key();
     settings.plugin = 'background_for_paragraphs';
     settings.documentname = 'Document1.docx';
-    settings.userName = "user_" + _counter;
-    _counter += 1;
     res.render('background_for_paragraphs', settings);
 });
 
 app.get('/background_for_cells', (req, res) => {
-    if (_counter > settings.userGroupCount) {
-        settings.key = uuidv1().substr(0, 8);
-        _counter = 1;
-    }
-    settings.userName = "user_" + _counter;
-    _counter += 1;
-
+    update_key();
     settings.plugin = 'background_for_cells';
     settings.documentname = 'Spreadsheet.xlsx';
     res.render('background_for_cells', settings);
 });
 
 app.get('/border_for_cells', (req, res) => {
-    if (_counter > settings.userGroupCount) {
-        settings.key = uuidv1().substr(0, 8);
-        _counter = 1;
-    }
-    settings.userName = "user_" + _counter;
-    _counter += 1;
-
+    update_key();
     settings.plugin = 'border_for_cells';
     settings.documentname = 'Spreadsheet.xlsx';
     res.render('background_for_cells', settings);
@@ -159,5 +142,15 @@ setInterval(() => {
     });
     cachedData = [];
 }, 1000);
+
+// update document key if current use count is maximised
+function update_key(): void {
+    if (_counter > settings.userGroupCount) {
+        settings.key = uuidv1().substr(0, 8);
+        _counter = 1;
+    }
+    settings.userName = "user_" + _counter;
+    _counter += 1;
+}
 
 app.listen(+settings.hostPort);
