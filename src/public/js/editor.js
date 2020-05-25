@@ -28,7 +28,7 @@ function open_and_wait(key, userName, exampleUrl, plugin, document) {
     if (this.userName) {
         config['editorConfig']['user'] = {"name": this.userName}
     }
-    window.instance = new DocsAPI.DocEditor("editor_frame", config);
+    open(config)
 }
 
 function open_without_plugin(key, userName, exampleUrl) {
@@ -58,7 +58,21 @@ function open_without_plugin(key, userName, exampleUrl) {
     if (this.userName) {
         config['editorConfig']['user'] = {"name": this.userName}
     }
-    window.instance = new DocsAPI.DocEditor("editor_frame", config);
+    open(config)
+}
+
+function open(config) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("post", "/jwt_generate", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = (e) => {
+        if (xhr.responseText !== "") {
+            console.log('123123123')
+            config = JSON.parse(xhr.responseText).config
+            window.instance = new DocsAPI.DocEditor("editor_frame", config);
+        }
+      }
+      xhr.send(JSON.stringify(config));
 }
 
 function hash_username() {

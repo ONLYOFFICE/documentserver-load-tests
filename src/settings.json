@@ -1,6 +1,7 @@
 {
-  "hostUrl": "http://ip",
-  "hostPort": "3000",
-  "documentServer": "http://ip",
-  "userGroupCount": 2
+  "hostUrl": "http://192.168.0.105",
+  "hostPort": 3000,
+  "documentServer": "http://192.168.0.105",
+  "userGroupCount": 2,
+  "jwt_use": false
 }

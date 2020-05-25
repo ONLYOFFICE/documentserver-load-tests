@@ -2,15 +2,18 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser = require("body-parser");
 import path from "path";
+import {SettingsInterface} from './helpers/interfaces'
 
-const settings = require("./settings.json");
+const settings: SettingsInterface = require("./settings.json");
 const uuidv1 = require('uuid/v1');
 const favicon = require('serve-favicon');
 const url = require('url');
+const jwt = require('jwt-simple');
 
 import expressWs from 'express-ws';
 
 const {app} = expressWs(express());
+var secret = 'secret';
 
 // is a counter for users in one group. See settings for change max count of its
 let _counter = 1;
@@ -68,13 +71,21 @@ app.get('/border_for_cells', (req, res) => {
 });
 
 app.get('/open', (req, res) => {
-    settings.key = req.query.key;
+    settings.key = req.query.key.toString();
     res.render('open', settings);
 });
 
 // default response without file saving. See https://api.onlyoffice.com/editors/callback
 app.post('/callback', (req, res) => {
     res.json({error: 0});
+});
+
+app.post('/jwt_generate',(req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    if (settings.jwt_use) {
+        req.body.token = jwt.encode({ payload: req.body }, secret)
+    }
+    res.json({config: req.body});
 });
 
 app.post('/activity', (req, res) => {
@@ -153,4 +164,4 @@ function update_key(): void {
     _counter += 1;
 }
 
-app.listen(+settings.hostPort);
+app.listen(settings.hostPort);
