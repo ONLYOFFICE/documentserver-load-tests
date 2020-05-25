@@ -1,6 +1,6 @@
 {
-    "rules": {
-      "array-type": [true, "array-simple"],
+  "rules": {
+    "array-type": [true, "array-simple"],
       "arrow-return-shorthand": true,
       "ban": [true,
         {"name": ["it", "skip"]},
@@ -65,4 +65,3 @@
       ]
     }
   }
-  
