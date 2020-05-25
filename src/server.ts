@@ -1,8 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import bodyParser = require("body-parser");
 import path from "path";
-import {SettingsInterface} from './helpers/interfaces'
+import {SettingsInterface} from './helpers/interfaces';
 
 const settings: SettingsInterface = require("./settings.json");
 const uuidv1 = require('uuid/v1');
@@ -13,7 +12,7 @@ const jwt = require('jwt-simple');
 import expressWs from 'express-ws';
 
 const {app} = expressWs(express());
-var secret = 'secret';
+const secret = 'secret';
 
 // is a counter for users in one group. See settings for change max count of its
 let _counter = 1;
@@ -31,7 +30,7 @@ app.set('view engine', 'ejs');
 app.use(cors());
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(bodyParser.json({limit: '10mb'}));
+app.use(express.json({limit: '10mb'}));
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // for easy getting plugin from test example
@@ -83,7 +82,7 @@ app.post('/callback', (req, res) => {
 app.post('/jwt_generate',(req, res) => {
     res.setHeader('Content-Type', 'application/json');
     if (settings.jwt_use) {
-        req.body.token = jwt.encode({ payload: req.body }, secret)
+        req.body.token = jwt.encode({ payload: req.body }, secret);
     }
     res.json({config: req.body});
 });
