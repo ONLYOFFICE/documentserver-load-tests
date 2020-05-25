@@ -1,12 +1,13 @@
 import express from 'express';
 import cors from 'cors';
-import bodyParser = require("body-parser");
 import path from "path";
+import {SettingsInterface} from './helpers/interfaces';
 
-const settings = require("./settings.json");
+const settings: SettingsInterface = require("./settings.json");
 const uuidv1 = require('uuid/v1');
 const favicon = require('serve-favicon');
 const url = require('url');
+const jwt = require('jwt-simple');
 
 import expressWs from 'express-ws';
 
@@ -28,7 +29,7 @@ app.set('view engine', 'ejs');
 app.use(cors());
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(bodyParser.json({limit: '10mb'}));
+app.use(express.json({limit: '10mb'}));
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // for easy getting plugin from test example
@@ -68,13 +69,21 @@ app.get('/border_for_cells', (req, res) => {
 });
 
 app.get('/open', (req, res) => {
-    settings.key = req.query.key;
+    settings.key = req.query.key.toString();
     res.render('open', settings);
 });
 
 // default response without file saving. See https://api.onlyoffice.com/editors/callback
 app.post('/callback', (req, res) => {
     res.json({error: 0});
+});
+
+app.post('/jwt_generate',(req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    if (settings.jwt_key) {
+        req.body.token = jwt.encode({ payload: req.body }, settings.jwt_key);
+    }
+    res.json({config: req.body});
 });
 
 app.post('/activity', (req, res) => {
@@ -153,4 +162,4 @@ function update_key(): void {
     _counter += 1;
 }
 
-app.listen(+settings.hostPort);
+app.listen(settings.hostPort);
