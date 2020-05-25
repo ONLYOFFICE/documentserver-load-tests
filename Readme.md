@@ -22,6 +22,8 @@ This repo is contain some tests and utilits for testing performance and load of 
 
 **userGroupCount** - max count of user for one document open
 
+**jwt_key** - is a `jwt` key. Set it if your documentserver is use jwt 
+
 2. Build docker image and run it
 
 ```bash 
