@@ -12,7 +12,6 @@ const jwt = require('jwt-simple');
 import expressWs from 'express-ws';
 
 const {app} = expressWs(express());
-const secret = 'secret';
 
 // is a counter for users in one group. See settings for change max count of its
 let _counter = 1;
