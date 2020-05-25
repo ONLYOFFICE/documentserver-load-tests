@@ -3,9 +3,9 @@ export interface SettingsInterface {
     "hostPort": number;
     "documentServer": string;
     "userGroupCount": number;
-    "jwt_use": boolean;
     "plugin": string;
     "documentname": string;
     "key": string;
     "userName": string;
+    "jwt_key"?: string;
 }

@@ -81,8 +81,8 @@ app.post('/callback', (req, res) => {
 
 app.post('/jwt_generate',(req, res) => {
     res.setHeader('Content-Type', 'application/json');
-    if (settings.jwt_use) {
-        req.body.token = jwt.encode({ payload: req.body }, secret);
+    if (settings.jwt_key) {
+        req.body.token = jwt.encode({ payload: req.body }, settings.jwt_key);
     }
     res.json({config: req.body});
 });
