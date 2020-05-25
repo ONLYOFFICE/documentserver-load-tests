@@ -67,7 +67,6 @@ function open(config) {
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = (e) => {
         if (xhr.responseText !== "") {
-            console.log('123123123')
             config = JSON.parse(xhr.responseText).config
             window.instance = new DocsAPI.DocEditor("editor_frame", config);
         }
