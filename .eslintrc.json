@@ -20,6 +20,7 @@
     ],
     "rules": {
       "max-len": ["error", { "code": 100 }],
-      "camelcase": [2, {"properties": "always", "ignoreImports": false}]
+      "camelcase": [2, {"properties": "always", "ignoreImports": false}],
+      "new-cap": ["error", { "capIsNew": false }]
     }
 }
