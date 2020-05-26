@@ -42,7 +42,7 @@ example:
 
 ```bash 
 docker build . --tag load
-docker run -itd -p 3000:3000 bfc336f1d8e8
+docker run -itd -p 3000:3000
 
 ```
 
