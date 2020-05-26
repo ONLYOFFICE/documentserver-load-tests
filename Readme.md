@@ -22,13 +22,27 @@ This repo is contain some tests and utilits for testing performance and load of 
 
 **userGroupCount** - max count of user for one document open
 
-**jwt_key** - is a `jwt` key. Set it if your documentserver is use jwt 
+**jwt_key** - is a `jwt` key. Set it if your documentserver is use jwt
+
+**plugin** - is a part of configuration of `editor` object.
+
+example:
+```
+{
+        autostart: [
+          'asc.{9616f139-6386-4e50-83bb-3dad84938cdd}',
+        ],
+        pluginsData: [
+          'https://onlyoffice-plugins.s3.us-east-2.amazonaws.com/load_tests_plugin/config.json'
+        ],
+}
+```
 
 2. Build docker image and run it
 
 ```bash 
 docker build . --tag load
-docker run -itd -p 80:80 load
+docker run -itd -p 3000:3000 bfc336f1d8e8
 
 ```
 

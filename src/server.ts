@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
@@ -21,6 +22,19 @@ let connects: WebSocket[] = [];
 // id of document. You will see average count of logs on activity page
 let specialLogData = '';
 settings.key = uuidv1().substr(0, 8);
+settings.plugin = JSON.stringify(settings.plugin);
+
+if (!settings.plugin) {
+  settings.plugin = JSON.stringify({
+    autostart: [
+      'asc.{9616f139-6386-4e50-83bb-3dad84938cdd}',
+    ],
+    pluginsData: [
+      settings.hostUrl +':' + settings.hostPort +
+       '/public/plugins/background_for_cells/config.json',
+    ],
+  });
+};
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -46,23 +60,8 @@ app.get('/', (req, res) => {
   res.render('index', settings);
 });
 
-app.get('/background_for_paragraphs', (req, res) => {
-  updateKey();
-  settings.plugin = 'background_for_paragraphs';
-  settings.documentname = 'Document1.docx';
-  res.render('background_for_paragraphs', settings);
-});
-
 app.get('/background_for_cells', (req, res) => {
   updateKey();
-  settings.plugin = 'background_for_cells';
-  settings.documentname = 'Spreadsheet.xlsx';
-  res.render('background_for_cells', settings);
-});
-
-app.get('/border_for_cells', (req, res) => {
-  updateKey();
-  settings.plugin = 'border_for_cells';
   settings.documentname = 'Spreadsheet.xlsx';
   res.render('background_for_cells', settings);
 });

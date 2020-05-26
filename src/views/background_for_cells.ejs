@@ -19,9 +19,9 @@
     }
 </style>
 <script>
-    const plugin = "<%= plugin %>";
-    const userName = hash_username()?hash_username():"<%= userName %>";
-    const key = hash_key()?hash_key():"<%= key %>";
+    const plugin = <%- plugin %>;
+    const userName = hashUsername()?hashUsername():"<%= userName %>";
+    const key = hashKey()?hashKey():"<%= key %>";
     const exampleUrl = "<%= hostUrl %>" + ":" + "<%= hostPort %>";
     const documentname = "<%= documentname %>";
     const odocument = {
@@ -31,6 +31,6 @@
     }
     window.location.hash ='username=' + userName;
     window.location.hash +='#key=' + key;
-    open_and_wait(key, userName, exampleUrl, plugin, odocument)
+    openAndWait(key, userName, exampleUrl, plugin, odocument)
 </script>
 
