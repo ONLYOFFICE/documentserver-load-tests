@@ -20,7 +20,7 @@ window.Asc.plugin.init = async function () {
         if (socket.readyState === 1) {
             socket.send(sessionData);
         } else if (socket.readyState === 3) {
-            socket = new WebSocket('ws://' + window.location.host + '/message');
+            socket = new WebSocket('wss://' + window.location.host + '/message');
         }
     }, 500);
 
