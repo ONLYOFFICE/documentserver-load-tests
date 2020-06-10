@@ -8,4 +8,3 @@ COPY . /documentserver-load-tests
 RUN npm install
 RUN npm run build:production
 CMD npm run start
-
